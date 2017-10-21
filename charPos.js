@@ -1,11 +1,11 @@
-function countLetters(string) {
-  var countObj = {};
+countLetters = (string) => {
+  let countObj = {};
 
-  for (var i = 0; i < string.length; i++) {
-    if (countObj[string[i]] === undefined) { //if it doesn't exists
-      countObj[string[i]] = [i]; //create a new array and at the same time add the first index
+  for (let i = 0; i < string.length; i++) {
+    if (countObj[string[i]] === undefined) {
+      countObj[string[i]] = [i];
     } else {
-      countObj[string[i]].push(i); //if it already exists push the next position in the array
+      countObj[string[i]].push(i);
     }
 
   }

@@ -1,13 +1,10 @@
-var salesTaxRates = {
+const salesTaxRates = {
   AB: 0.05,
   BC: 0.12,
   SK: 0.10
 };
- // for(var province in salesTaxRates) {
- //  var total = salesTaxRates[province];
- // console.log(total)
- // }
-var companySalesData = [
+
+const companySalesData = [
   {
     name: "Telus",
     province: "BC",
@@ -25,45 +22,31 @@ var companySalesData = [
   }
 ];
 
+calculateSalesTax = (salesData, taxRates) => {
+  const newObj = {}
 
-function calculateSalesTax(salesData, taxRates) {
-  var finalObj = {};
-  for (var arrObj of salesData) {
-    // declares variable 'arrObj' that goes through all the objects in salesData
-    if (finalObj[arrObj.name]){
-      // if the object 'finalObj' has a name in it already run below
-      var finalSum = 0;
-      var finalTax = 0
-      var salesArr = arrObj.sales;
-      var tax = taxRates[arrObj.province];
-      console.log(tax);
-      for (var i = 0; i < salesArr.length; i++) {
-        finalSum += salesArr[i];
-      }
-      finalTax = finalSum * tax
-      finalObj[arrObj.name].totalSales += finalSum;
-      finalObj[arrObj.name].totalTaxes += finalTax;
+  salesData.map(saleData => {
+    let eachSaleTotal = saleData.sales.reduce((a, b) => a + b, 0)
+    let eachSaleTaxes = taxRates[saleData.province]
+    let eachSaleTotalTax = eachSaleTotal * eachSaleTaxes
+    if(newObj[saleData.name]) {
+      newObj[saleData.name].totalSales += eachSaleTotal,
+      newObj[saleData.name].totalTaxes += eachSaleTotalTax
     } else {
-      finalObj[arrObj.name] = {totalSales: 0, totalTaxes: 0};
-      // TODO: Find the sum of sales
-      var finalSum = 0;
-      var finalTax = 0;
-      var salesArr = arrObj.sales;
-      var tax = taxRates[arrObj.province];
-      for (var i = 0; i < salesArr.length; i++) {
-        finalSum += salesArr[i];
+      newObj[saleData.name] = {
+        totalSales: eachSaleTotal,
+        totalTaxes: eachSaleTotalTax
       }
-      finalTax = finalSum * tax;
-      finalObj[arrObj.name].totalSales = finalSum;
-      finalObj[arrObj.name].totalTaxes = finalTax;
     }
+  })
 
-  }
-  return finalObj;
+  return newObj
 }
 
-var results = calculateSalesTax(companySalesData, salesTaxRates);
-console.log(results);
+const results = calculateSalesTax(companySalesData, salesTaxRates);
+
+console.log(results)
+
 /* Expected Results:
 {
   Telus: {

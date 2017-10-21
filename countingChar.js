@@ -1,8 +1,8 @@
-function countLetters(string) {
-  var countObj = {};
-  var noSpace = string.split(' ').join('')
+countLetters = (string) => {
+  let countObj = {};
+  let noSpace = string.split(' ').join('');
 
-  for (var i = 0; i < noSpace.length; i++) {
+  for (let i = 0; i < noSpace.length; i++) {
     if (countObj[noSpace[i]]) {
       countObj[noSpace[i]] += 1;
     } else {
